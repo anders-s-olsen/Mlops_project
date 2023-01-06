@@ -1,0 +1,42 @@
+{
+    "os": "Windows-10-10.0.19044-SP0",
+    "python": "3.10.8",
+    "heartbeatAt": "2023-01-06T14:18:42.565151",
+    "startedAt": "2023-01-06T14:18:41.775630",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "c:\\Users\\ander\\OneDrive - Danmarks Tekniske Universitet\\Dokumenter\\PhD\\02476\\Mlops_project\\src\\models\\train_model.py",
+    "codePath": "src\\models\\train_model.py",
+    "git": {
+        "remote": "https://github.com/markusOlsen1/Mlops_project",
+        "commit": "4f35f718243aaaa354b5f9f6259d4711441655b9"
+    },
+    "email": "ansol@dtu.dk",
+    "root": "C:/Users/ander/OneDrive - Danmarks Tekniske Universitet/Dokumenter/PhD/02476/Mlops_project",
+    "host": "LAPTOP-OQPQU01J",
+    "username": "ander",
+    "executable": "C:\\Users\\ander\\anaconda3\\envs\\02476project\\python.exe",
+    "cpu_count": 8,
+    "cpu_count_logical": 8,
+    "cpu_freq": {
+        "current": 2000.0,
+        "min": 0.0,
+        "max": 2000.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2000.0,
+            "min": 0.0,
+            "max": 2000.0
+        }
+    ],
+    "disk": {
+        "total": 475.4475746154785,
+        "used": 328.7980270385742
+    },
+    "memory": {
+        "total": 15.42105484008789
+    }
+}

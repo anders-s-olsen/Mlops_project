@@ -30,34 +30,15 @@
 #     main()
 
 import torch
-import os
-import wget
-import numpy as np
+from torchvision import datasets, transforms
 
-cwd=os.getcwd()
-data_path='./data'
+transform = transforms.Compose([transforms.ToTensor(),
+                                transforms.Normalize((0.1307,), (0.3081,))])
 
-os.chdir(data_path+"/raw")
+tr_set = datasets.MNIST('/data/mnist', train = True, download = True,
+                                       transform = transform)
+ts_set = datasets.MNIST('/data/mnist', train = False, download = True, transform = transform)
 
-files=os.listdir()
+torch.save(tr_set,'data/processed/train.pt')
+torch.save(ts_set,'data/processed/test.pt')
 
-if 'mnist.npz' not in files:
-    wget.download('https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz')
-
-data = np.load('mnist.npz')
-
-os.chdir("../processed")
-
-for key in data.keys():
-    if key in ['x_train', 'x_test']:
-        images=data[key].astype(float)
-        images_mean = np.mean(images, axis=(1,2))
-        images_std = np.std(images, axis=(1,2))
-        norm_images = (images - images_mean[:, np.newaxis, np.newaxis]) / images_std[:, np.newaxis, np.newaxis]
-        torch.save(torch.from_numpy(norm_images),f"{key}.pt")
-    else:
-        
-        labels=torch.from_numpy(data[key])
-        torch.save(labels,f"{key}.pt")
-
-os.chdir(cwd)
