@@ -50,9 +50,13 @@ def evaluate(model, data_load, loss_val):
           '{:4.2f}'.format(100.0 * csamp / samples) + '%)\n')
 
 ### Load data
-tr_data = torch.load()### udfyldes
+tr_data = torch.unsqueeze(torch.load("data/processed/x_train.pt"),dim=1)### udfyldes
+tr_labels = torch.load("data/processed/y_train.pt")### udfyldes
+tr_data = torch.utils.data.TensorDataset(tr_data,tr_labels)
 tr_load = torch.utils.data.DataLoader(tr_data,batch_size=64,shuffle=True)
-ts_data = torch.load() ### udfyldes
+ts_data = torch.unsqueeze(torch.load("data/processed/x_test.pt"),dim=1)### udfyldes
+ts_labels = torch.load("data/processed/y_test.pt")### udfyldes
+ts_data = torch.utils.data.TensorDataset(ts_data,ts_labels)
 ts_load = torch.utils.data.DataLoader(ts_data,batch_size=64,shuffle=False)
 
 N_EPOCHS = 25
