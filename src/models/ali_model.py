@@ -9,6 +9,22 @@ import torch.optim as optim
 
 torch.manual_seed(97)
 
+Dpath = '/data/mnist'
+Bs_Train = 100
+Bs_Test = 1000
+
+tform_mnist = torchvision.transforms.Compose([torchvision.transforms.ToTensor(),
+                                                  torchvision.transforms.Normalize((0.1307,),(0.3081,))])
+
+tr_set = torchvision.datasets.MNIST(Dpath, train = True, download = True,
+                                       transform = tform_mnist)
+
+tr_load = torch.utils.data.DataLoader(tr_set, batch_size = Bs_Train, shuffle = True)
+
+ts_set = torchvision.datasets.MNIST(Dpath, train = False, download = True, transform = tform_mnist)
+
+ts_load = torch.utils.data.DataLoader(ts_set, batch_size = Bs_Test, shuffle = True)
+
 def train_iter(model, optimz, data_load, loss_val):
     samples = len(data_load.dataset)
     model.train()
@@ -48,13 +64,7 @@ def evaluate(model, data_load, loss_val):
           '  Accuracy:' + '{:5}'.format(csamp) + '/' +
           '{:5}'.format(samples) + ' (' +
           '{:4.2f}'.format(100.0 * csamp / samples) + '%)\n')
-
-### Load data
-tr_data = torch.load()### udfyldes
-tr_load = torch.utils.data.DataLoader(tr_data,batch_size=64,shuffle=True)
-ts_data = torch.load() ### udfyldes
-ts_load = torch.utils.data.DataLoader(ts_data,batch_size=64,shuffle=False)
-
+    
 N_EPOCHS = 25
 
 start_time = time.time()
