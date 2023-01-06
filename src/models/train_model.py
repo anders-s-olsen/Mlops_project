@@ -9,12 +9,6 @@ import torch.optim as optim
 
 torch.manual_seed(97)
 
-### Load data
-tr_data = torch.load()### udfyldes
-tr_load = torch.utils.data.DataLoader(tr_data,batch_size=64,shuffle=True)
-ts_data = torch.load() ### udfyldes
-ts_load = torch.utils.data.DataLoader(ts_data,batch_size=64,shuffle=False)
-
 def train_iter(model, optimz, data_load, loss_val):
     samples = len(data_load.dataset)
     model.train()
@@ -54,7 +48,13 @@ def evaluate(model, data_load, loss_val):
           '  Accuracy:' + '{:5}'.format(csamp) + '/' +
           '{:5}'.format(samples) + ' (' +
           '{:4.2f}'.format(100.0 * csamp / samples) + '%)\n')
-    
+
+### Load data
+tr_data = torch.load()### udfyldes
+tr_load = torch.utils.data.DataLoader(tr_data,batch_size=64,shuffle=True)
+ts_data = torch.load() ### udfyldes
+ts_load = torch.utils.data.DataLoader(ts_data,batch_size=64,shuffle=False)
+
 N_EPOCHS = 25
 
 start_time = time.time()
