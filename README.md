@@ -1,12 +1,19 @@
-## Project description group 24ff
-Final exercise for today is making a project description. Write around half to one page about:
+# DTU-mlops group 24 - Vision transformers for MNIST classification
 
-Overall goal of the project
-What framework are you going to use (PyTorch Image Models, Transformer, Pytorch-Geometrics)
-How to you intend to include the framework into your project
-What data are you going to run on (initially, may change)
-What deep learning models do you expect to use
+### Overall goal of the project
+In this project we will focus on MNIST classification using vision transformers.
 
+### What framework are you going to use
+We will use the transformer pytorch ecosystem. 
+
+### How do you intend to include the framework in your project
+Vision transformers are implemented in the python package `vit-pytorch` which we will use for MNIST classification. These vision transformers will be added as an extension to the MNIST classification codebase already developed during the course. Thus, we will utilize other frameworks in conjunction with pytorch, including cookie-cutter, weights and biases, data version control, etc.
+
+### What data are you going to run on
+We will use the standard MNIST data set as included in `torchvision` datasets. The dataset contains roughly 50.000 handwritten digits between 0-9 for training and 10.000 images for testing. 
+
+### What deep learning models do you expect to use
+Transformers from the 2017-paper "Attention is all you need" have evolved to be near-SOTA models for a wide variety of applications. Transformers were initially developed for text or time-series analysis but have recently been extended to 2D data with the vision transformers introduced in the 2020-paper "An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale". 
 
 
 VIT_mnist
