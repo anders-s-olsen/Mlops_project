@@ -16,11 +16,6 @@ We will use the standard MNIST data set as included in `torchvision` datasets. T
 Transformers from the 2017-paper "Attention is all you need" have evolved to be near-SOTA models for a wide variety of applications. Transformers were initially developed for text or time-series analysis but have recently been extended to 2D data with the vision transformers introduced in the 2020-paper "An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale". 
 
 
-VIT_mnist
-==============================
-
-Text here
-
 Project Organization
 ------------
 
