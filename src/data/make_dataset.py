@@ -33,6 +33,7 @@ import torch
 import os
 import wget
 import numpy as np
+from torchvision import transforms
 
 cwd=os.getcwd()
 data_path='./data'
@@ -47,16 +48,22 @@ if 'mnist.npz' not in files:
 data = np.load('mnist.npz')
 
 os.chdir("../processed")
+transform = transforms.Compose([transforms.ToTensor(),
+                                transforms.Normalize((0.5,), (0.5,))])
 
 for key in data.keys():
     if key in ['x_train', 'x_test']:
-        images=data[key].astype(float)
-        images_mean = np.mean(images, axis=(1,2))
-        images_std = np.std(images, axis=(1,2))
-        norm_images = (images - images_mean[:, np.newaxis, np.newaxis]) / images_std[:, np.newaxis, np.newaxis]
-        torch.save(torch.from_numpy(norm_images),f"{key}.pt")
+        images = torch.permute(transform(data[key]),(1,0,2))
+        torch.save(images,f"{key}.pt")
+        
+        #images=data[key].astype(float)
+        #images_mean = np.mean(images, axis=(1,2))
+        #images_std = np.std(images, axis=(1,2))
+        #norm_images = (images - images_mean[:, np.newaxis, np.newaxis]) / images_std[:, np.newaxis, np.newaxis]
+        #torch.save(torch.from_numpy(norm_images),f"{key}.pt")
     else:
-        labels=torch.from_numpy(data[key])
+        labels = torch.LongTensor(data[key].astype(np.float32))
+        #labels=torch.from_numpy(data[key])
         torch.save(labels,f"{key}.pt")
 
 os.chdir(cwd)
