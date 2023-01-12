@@ -11,6 +11,8 @@ COPY models/ models/
 
 WORKDIR /
 RUN pip install -r requirements.txt --no-cache-dir
-RUN pip install wandb
+RUN pip install dvc[gs]
+RUN dvc remote add -d remote_storage s3://mlopsprojectbucket/
+RUN dvc pull
 
 ENTRYPOINT ["python", "-u", "src/models/train_model.py"]
