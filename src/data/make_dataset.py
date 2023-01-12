@@ -1,63 +1,53 @@
-# # -*- coding: utf-8 -*-
-# import click
-# import logging
-# from pathlib import Path
-# from dotenv import find_dotenv, load_dotenv
-
-
-# @click.command()
-# @click.argument('input_filepath', type=click.Path(exists=True))
-# @click.argument('output_filepath', type=click.Path())
-# def main(input_filepath, output_filepath):
-#     """ Runs data processing scripts to turn raw data from (../raw) into
-#         cleaned data ready to be analyzed (saved in ../processed).
-#     """
-#     logger = logging.getLogger(__name__)
-#     logger.info('making final data set from raw data')
-
-
-# if __name__ == '__main__':
-#     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-#     logging.basicConfig(level=logging.INFO, format=log_fmt)
-
-#     # not used in this stub but often useful for finding various files
-#     project_dir = Path(__file__).resolve().parents[2]
-
-#     # find .env automagically by walking up directories until it's found, then
-#     # load up the .env entries as environment variables
-#     load_dotenv(find_dotenv())
-
-#     main()
-
 import torch
+from torch.utils.data import Dataset
 import os
 import wget
 import numpy as np
+import pickle
 
-cwd=os.getcwd()
-data_path='./data'
+class MNIST(Dataset):
+    def __init__(self,train):
+        self.download_data()
+        content = np.load("./data/raw/mnist.npz",allow_pickle=True)
+        if train:
+            data = torch.tensor(content['x_train'].astype(float)).reshape(-1, 1, 28, 28)
+            targets = torch.tensor(content['y_train'])
+        else:
+            data = torch.tensor(content['x_test'].astype(float)).reshape(-1, 1, 28, 28)
+            targets = torch.tensor(content['y_test'])
 
-os.chdir(data_path+"/raw")
+        # Normalize data
+        mean = data.mean(dim=(1,2,3), keepdim=True)
+        std = data.std(dim=(1,2,3), keepdim=True)
 
-files=os.listdir()
+        data = (data - mean) / std
 
-if 'mnist.npz' not in files:
-    wget.download('https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz')
+        self.data = data
+        self.targets = targets
 
-data = np.load('mnist.npz')
 
-os.chdir("../processed")
+    def download_data(self):
+        files = os.listdir('./data/raw')
+        if "mnist.npz" not in files:
+            wget.download('https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz', out = './data/raw')
 
-for key in data.keys():
-    if key in ['x_train', 'x_test']:
-        images=data[key].astype(float)
-        images_mean = np.mean(images, axis=(1,2))
-        images_std = np.std(images, axis=(1,2))
-        norm_images = (images - images_mean[:, np.newaxis, np.newaxis]) / images_std[:, np.newaxis, np.newaxis]
-        torch.save(torch.from_numpy(norm_images),f"{key}.pt")
-    else:
-        
-        labels=torch.from_numpy(data[key])
-        torch.save(labels,f"{key}.pt")
+    def __len__(self):
+        return self.targets.numel()
+    
+    def __getitem__(self, idx):
+        return self.data[idx].float(), self.targets[idx]
 
-os.chdir(cwd)
+if __name__ == "__main__":
+    dataset_train = MNIST(train=True)
+    dataset_test = MNIST(train=False)
+    
+    # Open a file for writing
+    with open('./data/processed/dataset_train.pt', 'wb') as f:
+    # Serialize the object and write it to the file
+        pickle.dump(dataset_train, f)
+
+    # Open a file for writing
+    with open('./data/processed/dataset_test.pt', 'wb') as f:
+    # Serialize the object and write it to the file
+        pickle.dump(dataset_test, f)
+
