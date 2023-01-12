@@ -8,13 +8,11 @@ COPY requirements.txt requirements.txt
 #COPY setup.py setup.py
 COPY src/ src/
 COPY models/ models/
-COPY .dvc/ .dvc/
-COPY data.dvc data.dvc
-COPY .git .git
-COPY .dvcignore .dvcignore
-COPY .gitignore .gitignore
 
 WORKDIR /
 RUN pip install -r requirements.txt --no-cache-dir
+RUN mkdir data/
+RUN mkdir data/raw
+RUN mkdir data/processed
 RUN python src/data/make_dataset.py
 ENTRYPOINT ["python", "-u", "src/models/train_model.py"]
