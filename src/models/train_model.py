@@ -6,8 +6,9 @@ import time
 import torch.nn.functional as F
 import torch.optim as optim
 import wandb
+import make_dataset_transforms
 
-
+make_dataset_transforms.rundata()
 wandb.init(entity="dtu_mlops_group24",project="dtu_mlops24")
 lr = 0.003
 
