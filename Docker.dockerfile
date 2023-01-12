@@ -9,6 +9,7 @@ COPY setup.py setup.py
 COPY src/ src/
 COPY data/ data/
 COPY models/ models/
+COPY traincloudbuild.yaml traincloudbuild.yaml
 
 
 WORKDIR /
