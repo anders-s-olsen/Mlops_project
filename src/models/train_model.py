@@ -6,7 +6,7 @@ import time
 import torch.nn.functional as F
 import torch.optim as optim
 import wandb
-
+import torch.cuda
 
 wandb.init(entity="dtu_mlops_group24",project="dtu_mlops24")
 lr = 0.003
@@ -72,7 +72,7 @@ tr_load = torch.utils.data.DataLoader(tr_data,batch_size=64,shuffle=True).to(dev
 ts_data = torch.load("data/processed/x_test.pt").to(device)
 ts_load = torch.utils.data.DataLoader(ts_data,batch_size=64,shuffle=False).to(device)
 
-N_EPOCHS = 25
+N_EPOCHS =1  
 
 start_time = time.time()
 model = ViT(image_size=28, patch_size=4, num_classes=10, channels=1,

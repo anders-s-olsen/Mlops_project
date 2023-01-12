@@ -1,0 +1,42 @@
+{
+    "os": "macOS-10.16-x86_64-i386-64bit",
+    "python": "3.10.8",
+    "heartbeatAt": "2023-01-12T09:44:56.073831",
+    "startedAt": "2023-01-12T09:44:55.320664",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "/Users/MarkusOlsen/School/Xtech/VIT_mnist/src/models/train_model.py",
+    "codePath": "src/models/train_model.py",
+    "git": {
+        "remote": "https://github.com/markusOlsen1/Mlops_project.git",
+        "commit": "9727d41ba3ab58e7c2666ce59f6ccb5884fe05b2"
+    },
+    "email": "markusditlevolsen@gmail.com",
+    "root": "/Users/MarkusOlsen/School/Xtech/VIT_mnist",
+    "host": "Markuss-MacBook-Air.local",
+    "username": "MarkusOlsen",
+    "executable": "/Users/MarkusOlsen/anaconda3/envs/mlops/bin/python3",
+    "cpu_count": 2,
+    "cpu_count_logical": 4,
+    "cpu_freq": {
+        "current": 1400,
+        "min": 1400,
+        "max": 1400
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 1400,
+            "min": 1400,
+            "max": 1400
+        }
+    ],
+    "disk": {
+        "total": 112.80464935302734,
+        "used": 14.27044677734375
+    },
+    "memory": {
+        "total": 8.0
+    }
+}
