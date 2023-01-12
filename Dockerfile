@@ -15,8 +15,6 @@ COPY .dvcignore .dvcignore
 COPY .gitignore .gitignore
 
 WORKDIR /
-RUN pip install dvc[gs] --no-cache-dir
-RUN dvc pull
 RUN pip install -r requirements.txt --no-cache-dir
-
+RUN python src/data/make_dataset.py
 ENTRYPOINT ["python", "-u", "src/models/train_model.py"]
