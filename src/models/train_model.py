@@ -10,6 +10,7 @@ import torch.nn.functional as F
 import torch.optim as optim
 import wandb
 import hydra
+import subprocess
 from hydra.utils import get_original_cwd
 torch.manual_seed(97)
 
@@ -60,7 +61,16 @@ def train(cfg):
                     '{:6.4f}'.format(loss.item()))
                 wandb.log({"train_loss":loss.item()})
 
+
+
+
+
     torch.save(model.state_dict(),'models/trained_model.pt')
+    subprocess.check_call([
+        'gsutil', 'cp', 'models/trained_model.pt',
+        'gs://model_checkpoints_group24'
+    ])
+
     print('Execution time:', '{:5.2f}'.format(time.time() - start_time), 'seconds')
 
 if __name__ == '__main__':
