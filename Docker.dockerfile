@@ -11,6 +11,7 @@ COPY data/ data/
 COPY models/ models/
 
 
+
 WORKDIR /
 RUN pip install -r requirements.txt --no-cache-dir
 RUN pip install wandb
