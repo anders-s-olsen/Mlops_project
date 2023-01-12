@@ -12,8 +12,7 @@ COPY .dvc/ .dvc/
 COPY data.dvc data.dvc
 
 WORKDIR /
-RUN pip install dvc[gs]
-RUN dvc remote add -d remote_storage s3://mlopsprojectbucket/
+RUN pip install dvc[gs] --no-cache-dir
 RUN dvc pull
 RUN pip install -r requirements.txt --no-cache-dir
 
