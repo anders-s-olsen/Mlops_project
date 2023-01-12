@@ -8,11 +8,13 @@ COPY requirements.txt requirements.txt
 #COPY setup.py setup.py
 COPY src/ src/
 COPY models/ models/
+COPY .dvc/ .dvc/
+COPY data.dvc data.dvc
 
 WORKDIR /
-RUN pip install -r requirements.txt --no-cache-dir
 RUN pip install dvc[gs]
 RUN dvc remote add -d remote_storage s3://mlopsprojectbucket/
 RUN dvc pull
+RUN pip install -r requirements.txt --no-cache-dir
 
 ENTRYPOINT ["python", "-u", "src/models/train_model.py"]
