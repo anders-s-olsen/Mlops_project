@@ -1,6 +1,7 @@
 import torchvision
 import argparse
 import torch
+import torch.nn.functional as F
 from vit_pytorch import ViT
 import sys
 
@@ -40,9 +41,9 @@ def predict():
     input = (input - mean) / std
 
     with torch.no_grad():
-        preds=model(input.to(device))
+        preds=F.softmax(model(input.to(device)), dim=1)
         pred=preds.argmax(dim=-1)
-        print(f"The predicted label is: {pred.item()}")
+        print(f"The predicted label is: {pred.item()} with probability {preds.max().item():.2f}")
     #     for data, target in data_load:
     #         output = F.log_softmax(model(data), dim=1)
     #         loss = F.nll_loss(output, target, reduction='sum')
