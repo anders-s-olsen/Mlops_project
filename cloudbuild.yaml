@@ -1,6 +1,6 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build','-f','trainer.dockerfile','.','t','train2:latest']
+    args: ['build','-f','trainer.dockerfile','.']
   - name: 'gcr.io/cloud-builders/docker'
     args: ['tag', 'train2','gcr.io/mlopsproject-374510/train2']
   - name: 'gcr.io/cloud-builders/docker'
