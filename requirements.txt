@@ -1,6 +1,6 @@
 numpy==1.21.5
 setuptools==65.6.3
-torch==1.13.0
+torch==1.13.1
 torchvision==0.14.1
 vit_pytorch==0.40.2
 wget==3.2
