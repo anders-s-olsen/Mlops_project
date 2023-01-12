@@ -66,16 +66,18 @@ def evaluate(model, data_load, loss_val):
 #ts_load = torch.utils.data.DataLoader(ts_data_all,batch_size=64,shuffle=False)
 
 ### Load data
-tr_data = torch.load("data/processed/train.pt")
-tr_load = torch.utils.data.DataLoader(tr_data,batch_size=64,shuffle=True)
-ts_data = torch.load("data/processed/x_test.pt")
-ts_load = torch.utils.data.DataLoader(ts_data,batch_size=64,shuffle=False)
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+tr_data = torch.load("data/processed/train.pt").to(device)
+tr_load = torch.utils.data.DataLoader(tr_data,batch_size=64,shuffle=True).to(device)
+ts_data = torch.load("data/processed/x_test.pt").to(device)
+ts_load = torch.utils.data.DataLoader(ts_data,batch_size=64,shuffle=False).to(device)
 
 N_EPOCHS = 25
 
 start_time = time.time()
 model = ViT(image_size=28, patch_size=4, num_classes=10, channels=1,
             dim=64, depth=6, heads=8, mlp_dim=128)
+model.to(device)
 optimz = optim.Adam(model.parameters(), lr=lr)
 
 trloss_val, tsloss_val = [], []
