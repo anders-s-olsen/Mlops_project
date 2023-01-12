@@ -1,5 +1,5 @@
 # Base image
-FROM python:3.7-slim
+FROM python:3.8-slim
 # install python
 RUN apt update && \
     apt install --no-install-recommends -y build-essential gcc && \
