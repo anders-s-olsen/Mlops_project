@@ -11,3 +11,5 @@
 torch
 torchvision
 vit_pytorch
+wandb
+wget
