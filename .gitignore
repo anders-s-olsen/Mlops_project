@@ -95,3 +95,6 @@ target/
 
 # wandb
 /wandb/
+
+# Hydra
+/outputs/

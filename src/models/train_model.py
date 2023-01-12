@@ -1,6 +1,5 @@
 #You need to install the following python packages
 #pytorch, vit_pytorch.
-import argparse
 import sys
 import pickle
 import os
@@ -10,30 +9,26 @@ import time
 import torch.nn.functional as F
 import torch.optim as optim
 import wandb
+import hydra
+from hydra.utils import get_original_cwd
 torch.manual_seed(97)
 
 sys.path.append('./src/data')
 from make_dataset import MNIST
-
 wandb.init(entity="dtu_mlops_group24",project="dtu_mlops24")
 
+@hydra.main(version_base=None,config_path=".",config_name="config.yaml",)
+def train(cfg):
+    os.chdir(get_original_cwd())
+    hps = cfg.hyperparameters
+    print(hps)
 
-def train():
-    parser = argparse.ArgumentParser(description='Training arguments')
-    parser.add_argument('--lr', default=1e-3, type=float)
-    parser.add_argument('-b','--batch_size', default=128, type=int)
-    parser.add_argument('-e','--epochs', default=5, type=int)
-    parser.add_argument('-d','--device')
-    # add any additional argument that you want
-    args = parser.parse_args(sys.argv[1:])
-    print(args)
-
-    if args.device is None:
+    if hps.device is None:
         device = "cpu"
         if torch.cuda.is_available():
             device = "cuda"
     else:
-        device = args.device
+        device = hps.device
 
     print("Device: ", device)
 
@@ -46,12 +41,12 @@ def train():
     # Deserialize the object and recreate it in memory
         train_set = pickle.load(f)
     
-    dataloader = torch.utils.data.DataLoader(train_set, batch_size=args.batch_size)
-    optimz = optim.Adam(model.parameters(), lr=args.lr)
+    dataloader = torch.utils.data.DataLoader(train_set, batch_size=hps.batch_size, shuffle=True)
+    optimz = optim.Adam(model.parameters(), lr=hps.lr)
 
 
     model.train()
-    for epoch in range(args.epochs):
+    for epoch in range(hps.epochs):
         for i, (data, target) in enumerate(dataloader):
             optimz.zero_grad()
             out = F.log_softmax(model(data.to(device)), dim=1)
