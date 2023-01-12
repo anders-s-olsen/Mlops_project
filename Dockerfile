@@ -10,6 +10,7 @@ COPY src/ src/
 COPY models/ models/
 COPY .dvc/ .dvc/
 COPY data.dvc data.dvc
+COPY .git .git
 
 WORKDIR /
 RUN pip install dvc[gs] --no-cache-dir
