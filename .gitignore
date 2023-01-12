@@ -93,3 +93,9 @@ target/
 
 # Virtual environment
 .venv/
+
+# wandb
+/wandb/
+
+# Hydra
+/outputs/
