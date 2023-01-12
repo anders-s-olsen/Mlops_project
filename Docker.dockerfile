@@ -1,4 +1,4 @@
-
+# Base image
 FROM python:3.7-slim
 # install python
 RUN apt update && \
