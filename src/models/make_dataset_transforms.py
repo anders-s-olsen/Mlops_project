@@ -31,16 +31,23 @@
 
 import torch
 from torchvision import datasets, transforms
+
+
 def rundata():
-    transform = transforms.Compose([transforms.ToTensor(),
-                                    transforms.Normalize((0.1307,), (0.3081,))])
+    transform = transforms.Compose(
+        [transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))]
+    )
 
-    tr_set = datasets.MNIST('/data/mnist', train = True, download = True,
-                                        transform = transform)
-    ts_set = datasets.MNIST('/data/mnist', train = False, download = True, transform = transform)
+    tr_set = datasets.MNIST(
+        "/data/mnist", train=True, download=True, transform=transform
+    )
+    ts_set = datasets.MNIST(
+        "/data/mnist", train=False, download=True, transform=transform
+    )
 
-    torch.save(tr_set,'data/processed/train.pt')
-    torch.save(ts_set,'data/processed/test.pt')
+    torch.save(tr_set, "data/processed/train.pt")
+    torch.save(ts_set, "data/processed/test.pt")
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     rundata()
