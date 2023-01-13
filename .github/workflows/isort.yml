@@ -2,9 +2,9 @@ name: "sort imports"
 
 on:
   push:
-    branches: [ master, main ]
+    branches: [ master, main, testing-&-precommit ]
   pull_request:
-    branches: [ master, main ]
+    branches: [ master, main, testing-&-precommit ]
 
 jobs:
   build:
