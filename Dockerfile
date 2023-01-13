@@ -18,18 +18,18 @@ RUN mkdir data/processed
 RUN python src/data/make_dataset.py
 
 # Installs google cloud sdk, this is mostly for using gsutil to export model.
-RUN wget -nv \
-    https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz && \
-    mkdir /tools && \
-    tar xvzf google-cloud-sdk.tar.gz -C /tools && \
-    rm google-cloud-sdk.tar.gz && \
-    /tools/google-cloud-sdk/install.sh --usage-reporting=false \
-        --path-update=false --bash-completion=false \
-        --disable-installation-options && \
-    rm -rf /.config/* && \
-    ln -s /.config /config && \
-    # Remove the backup directory that gcloud creates
-    rm -rf /tools/google-cloud-sdk/.install/.backup
+# RUN wget -nv \
+#     https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz && \
+#     mkdir /tools && \
+#     tar xvzf google-cloud-sdk.tar.gz -C /tools && \
+#     rm google-cloud-sdk.tar.gz && \
+#     /tools/google-cloud-sdk/install.sh --usage-reporting=false \
+#         --path-update=false --bash-completion=false \
+#         --disable-installation-options && \
+#     rm -rf /.config/* && \
+#     ln -s /.config /config && \
+#     # Remove the backup directory that gcloud creates
+#     rm -rf /tools/google-cloud-sdk/.install/.backup
 
 # Path configuration
 ENV PATH $PATH:/tools/google-cloud-sdk/bin
