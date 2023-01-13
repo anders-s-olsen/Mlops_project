@@ -9,9 +9,9 @@ COPY requirements.txt requirements.txt
 COPY src/ src/
 COPY models/ models/
 
-WORKDIR /
-
 RUN pip install -r requirements.txt --no-cache-dir
+
+WORKDIR /
 RUN mkdir data/
 RUN mkdir data/raw
 RUN mkdir data/processed
