@@ -1,5 +1,5 @@
 # Base image
-FROM python:3.8-slim
+FROM  nvcr.io/nvidia/pytorch:22.07-py3
 # install python
 #RUN apt update && \
 #    apt install --no-install-recommends -y build-essential gcc && \
