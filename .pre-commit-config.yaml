@@ -19,3 +19,5 @@ repos:
     hooks:
     -   id: black
         language_version: python3.10
+        args:
+            - --target-version=py310
