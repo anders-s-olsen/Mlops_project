@@ -4,14 +4,15 @@ FROM  nvcr.io/nvidia/pytorch:22.07-py3
 #RUN apt update && \
 #    apt install --no-install-recommends -y build-essential gcc && \
 #    apt clean && rm -rf /var/lib/apt/lists/*
+WORKDIR /
 COPY requirements.txt requirements.txt
 #COPY setup.py setup.py
 COPY src/ src/
 COPY models/ models/
-
+RUN pwd
 RUN pip install -r requirements.txt --no-cache-dir
 
-WORKDIR /
+RUN pwd
 RUN mkdir data/
 RUN mkdir data/raw
 RUN mkdir data/processed
