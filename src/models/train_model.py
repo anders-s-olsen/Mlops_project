@@ -66,10 +66,10 @@ def train(cfg):
 
 
     torch.save(model.state_dict(),'models/trained_model.pt')
-    subprocess.check_call([
-        'gsutil', 'cp', 'models/trained_model.pt',
-        'gs://model_checkpoints_group24'
-    ])
+    # subprocess.check_call([
+    #     'gsutil', 'cp', 'models/trained_model.pt',
+    #     'gs://model_checkpoints_group24'
+    # ])
 
     print('Execution time:', '{:5.2f}'.format(time.time() - start_time), 'seconds')
 
