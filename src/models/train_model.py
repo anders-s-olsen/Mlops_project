@@ -66,12 +66,12 @@ def train(cfg):
                     ' (' + '{:3.0f}'.format(100 * i / len(dataloader)) + '%)]  Loss: ' +
                     '{:6.4f}'.format(loss.item()))
                 wandb.log({"train_loss":loss.item()})
-            if i % 100 == 0:
+            if i % 10 == 0:
                 with torch.no_grad():
                     model.eval()
                     test_acc = 0
                     test_loss = 0
-                    for i, (data, target) in enumerate(dataloader):
+                    for i, (data, target) in enumerate(testloader):
                         out = F.log_softmax(model(data.to(device)), dim=1)
                         loss = F.nll_loss(out, target.to(device))
                         test_loss += loss.item()
@@ -80,7 +80,7 @@ def train(cfg):
                         testacc = torch.mean(equals.type(torch.Tensor))
                         test_acc+=testacc.item()
                     wandb.log({"test_loss": test_loss})
-                    wandb.log({"test_accuracy": test_acc})
+                    wandb.log({"test_accuracy": test_acc/len(testloader)})
             
 
 
