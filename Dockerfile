@@ -11,6 +11,7 @@ COPY src/ src/
 COPY models/ models/
 RUN pwd
 RUN pip install -r requirements.txt --no-cache-dir
+RUN pip install wandb
 
 RUN pwd
 RUN mkdir data/
