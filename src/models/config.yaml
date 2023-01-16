@@ -2,5 +2,5 @@
 hyperparameters:
   batch_size: 128
   lr: 3e-3
-  epochs: 5
+  epochs: 1
   device:
