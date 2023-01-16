@@ -61,7 +61,7 @@ def train(cfg):
             loss.backward()
             optimz.step()
             
-            if i % 10 == 0:
+            if i % 1 == 0:
                 print('[' +  '{:5}'.format(i * len(data)) + '/' + '{:5}'.format(len(train_set)) +
                     ' (' + '{:3.0f}'.format(100 * i / len(dataloader)) + '%)]  Loss: ' +
                     '{:6.4f}'.format(loss.item()))
@@ -80,7 +80,7 @@ def train(cfg):
                         testacc = torch.mean(equals.type(torch.Tensor))
                         test_acc+=testacc.item()
                     wandb.log({"test_loss":test_loss})
-                    wandb.log({"test_accuracy":test_acc/len(testloader)})
+                    wandb.log({"test_accuracy":100*test_acc/len(testloader)})
             
 
 
