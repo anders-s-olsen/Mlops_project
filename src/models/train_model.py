@@ -85,8 +85,8 @@ def train(cfg):
     torch.save(model.state_dict(),'models/trained_model.pt')
 
     storage_client = storage.Client()
-    bucket = storage_client.bucket('gs://model_checkpoints_group24')
-    blob = bucket.blob('/trained_model.pt')
+    bucket = storage_client.bucket('model_checkpoints_group24')
+    blob = bucket.blob('trained_model.pt')
     blob.upload_from_filename('models/trained_model.pt')
 
     #bucket = storage.Client().bucket('gs://model_checkpoints_group24/')

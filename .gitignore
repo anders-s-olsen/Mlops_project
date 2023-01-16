@@ -90,6 +90,7 @@ target/
 .mypy_cache/
 # data for dvc
 /data
+/models
 
 # Virtual environment
 .venv/
