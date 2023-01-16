@@ -66,7 +66,7 @@ def train(cfg):
                     ' (' + '{:3.0f}'.format(100 * i / len(dataloader)) + '%)]  Loss: ' +
                     '{:6.4f}'.format(loss.item()))
                 wandb.log({"train_loss":loss.item()})
-            if i % 1 == 0:
+            if i % 10 == 0:
                 with torch.no_grad():
                     model.eval()
                     test_acc = 0
