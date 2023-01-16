@@ -82,15 +82,16 @@ def train(cfg):
                     wandb.log({"test_loss":test_loss})
                     wandb.log({"test_accuracy":100*test_acc/len(testloader)})
             
-
-
-
-
-    bucket = storage.Client().bucket('gs://model_checkpoints_group24/')    
-
     torch.save(model.state_dict(),'models/trained_model.pt')
+
+    storage_client = storage.Client()
+    bucket = storage_client.bucket('gs://model_checkpoints_group24')
     blob = bucket.blob('/trained_model.pt')
     blob.upload_from_filename('models/trained_model.pt')
+
+    #bucket = storage.Client().bucket('gs://model_checkpoints_group24/')
+    #blob = bucket.blob('/trained_model.pt')
+    #blob.upload_from_filename('models/trained_model.pt')
     print(f"Saved model files in 'gs://model_checkpoints_group24/trained_model.pt")
     # subprocess.check_call([
     #     'gsutil', 'cp', 'models/trained_model.pt',
