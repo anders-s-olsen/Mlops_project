@@ -1,7 +1,8 @@
 FROM python:3.9-slim
 
 EXPOSE $PORT
-WORKDIR /app
+# shall bu build from app as workdir
+WORKDIR /
 
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -17,7 +18,6 @@ RUN pip install torch --no-cache-dir
 RUN pip install torchvision --no-cache-dir
 RUN pip install vit-pytorch --no-cache-dir
 RUN pip install python-multipart
-RUN touch image.jpg
 
 COPY main.py main.py
 COPY ../src/models/predict_model.py  ../src/models/predict_model.py
