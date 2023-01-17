@@ -17,7 +17,6 @@ RUN pip install google-cloud-storage --no-cache-dir
 RUN pip install torch --no-cache-dir
 RUN pip install torchvision --no-cache-dir
 RUN pip install vit-pytorch --no-cache-dir
-RUN pip install python-multipart
 RUN touch image.jpg
 
 COPY app.py app.py
