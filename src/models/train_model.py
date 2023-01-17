@@ -1,17 +1,20 @@
 # You need to install the following python packages
 # pytorch, vit_pytorch.
-import sys
-import pickle
 import os
-import torch
-from vit_pytorch import ViT
+import pickle
+import subprocess
+import sys
 import time
+
+import hydra
+import torch
 import torch.nn.functional as F
 import torch.optim as optim
-import wandb
-import hydra
-import subprocess
+from google.cloud import storage
 from hydra.utils import get_original_cwd
+from vit_pytorch import ViT
+
+import wandb
 
 torch.manual_seed(97)
 
@@ -56,22 +59,27 @@ def train(cfg):
     with open("./data/processed/dataset_train.pt", "rb") as f:
         # Deserialize the object and recreate it in memory
         train_set = pickle.load(f)
+    with open("./data/processed/dataset_test.pt", "rb") as f:
+        test_set = pickle.load(f)
 
     dataloader = torch.utils.data.DataLoader(
         train_set, batch_size=hps.batch_size, shuffle=True
     )
+    testloader = torch.utils.data.DataLoader(
+        test_set, batch_size=hps.batch_size, shuffle=False
+    )
     optimz = optim.Adam(model.parameters(), lr=hps.lr)
 
-    model.train()
     for epoch in range(hps.epochs):
         for i, (data, target) in enumerate(dataloader):
+            model.train()
             optimz.zero_grad()
             out = F.log_softmax(model(data.to(device)), dim=1)
             loss = F.nll_loss(out, target.to(device))
             loss.backward()
             optimz.step()
 
-            if i % 1 == 0:
+            if i % 10 == 0:
                 print(
                     "["
                     + "{:5}".format(i * len(data))
@@ -83,11 +91,32 @@ def train(cfg):
                     + "{:6.4f}".format(loss.item())
                 )
                 wandb.log({"train_loss": loss.item()})
+            if i % 100 == 0:
+                with torch.no_grad():
+                    model.eval()
+                    test_acc = 0
+                    test_loss = 0
+                    for i, (data, target) in enumerate(dataloader):
+                        out = F.log_softmax(model(data.to(device)), dim=1)
+                        loss = F.nll_loss(out, target.to(device))
+                        test_loss += loss.item()
+                        topval, topclass = out.topk(1, dim=1)
+                        equals = topclass == target.view(*topclass.shape)
+                        testacc = torch.mean(equals.type(torch.Tensor))
+                        test_acc += testacc.item()
+                    wandb.log({"test_loss": test_loss})
+                    wandb.log({"test_accuracy": test_acc})
+
+    bucket = storage.Client().bucket("gs://model_checkpoints_group24/")
 
     torch.save(model.state_dict(), "models/trained_model.pt")
-    subprocess.check_call(
-        ["gsutil", "cp", "models/trained_model.pt", "gs://model_checkpoints_group24"]
-    )
+    blob = bucket.blob("/trained_model.pt")
+    blob.upload_from_filename("models/trained_model.pt")
+    print(f"Saved model files in 'gs://model_checkpoints_group24/trained_model.pt")
+    # subprocess.check_call([
+    #     'gsutil', 'cp', 'models/trained_model.pt',
+    #     'gs://model_checkpoints_group24'
+    # ])
 
     print("Execution time:", "{:5.2f}".format(time.time() - start_time), "seconds")
 
