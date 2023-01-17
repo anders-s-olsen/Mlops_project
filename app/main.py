@@ -22,7 +22,7 @@ def main():
 
 def add_to_database(pred: str):
     with open("prediction_database.csv", "a") as file:
-        file.write(str(pred))
+        file.write(str(pred)+",")
 
 
 @app.get("/test/")
