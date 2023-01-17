@@ -1,11 +1,7 @@
-import cv2
 from fastapi import FastAPI
 import sys
-import pickle
-from datetime import datetime
-from fastapi import BackgroundTasks, UploadFile, File
+from fastapi import UploadFile, File
 from google.cloud import storage
-from predict_model import predict
 
 sys.path.append('./src/models')
 from predict_model import predict
@@ -17,7 +13,7 @@ MODEL_FILE = "trained_model.pt"
 client = storage.Client()
 bucket = client.get_bucket(BUCKET_NAME)
 blob = bucket.get_blob(MODEL_FILE)
-my_model = pickle.loads(blob.download_as_string())
+#my_model = pickle.loads(blob.download_as_string())
 
 
 @app.get("/")
@@ -25,7 +21,7 @@ def main():
     return "welcome to mnist predictor"
 
 
-def add_to_database(pred: int):
+def add_to_database(pred: str):
     with open("prediction_database.csv", "a") as file:
         file.write(str(pred))
 
@@ -41,5 +37,8 @@ async def predict_number(input: UploadFile = File(...)):
         content = await input.read()
         image.write(content)
         image.close()
+    
+    pred = predict(img='image.jpg',model=blob.download_as_string())
 
-    return predict(my_model, image)
+    add_to_database(pred)
+    return pred

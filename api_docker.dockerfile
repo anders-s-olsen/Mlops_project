@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
 RUN pip install fastapi
 RUN pip install pydantic
 RUN pip install uvicorn
+RUN touch image.jpg
 
 COPY app.py app.py
 COPY src/models/predict_model.py  src/models/predict_model.py
