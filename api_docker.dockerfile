@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
 
 RUN pip install fastapi --no-cache-dir
 RUN pip install pydantic --no-cache-dir
+RUN pip install python-multipart --no-cache-dir
 RUN pip install uvicorn --no-cache-dir
 RUN pip install google-cloud-storage --no-cache-dir
 RUN pip install torch --no-cache-dir
