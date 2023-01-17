@@ -14,5 +14,5 @@ RUN pip install pydantic
 RUN pip install uvicorn
 
 COPY app.py app.py
-
+COPY src/models/predict_model.py  src/models/predict_model.py
 CMD exec uvicorn app:app --port $PORT --host 0.0.0.0 --workers 1

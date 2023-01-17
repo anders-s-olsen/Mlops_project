@@ -1,11 +1,14 @@
 import cv2
 from fastapi import FastAPI
+import sys
 import pickle
 from datetime import datetime
 from fastapi import BackgroundTasks, UploadFile, File
-from predict_model import predict
 from google.cloud import storage
 import pickle
+
+sys.path.append('./src/models')
+from predict_model import predict
 
 app = FastAPI()
 BUCKET_NAME = "model_checkpoints_group24"
