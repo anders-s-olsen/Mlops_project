@@ -1,9 +1,10 @@
-import torchvision
 import argparse
+import sys
+
 import torch
 import torch.nn.functional as F
+import torchvision
 from vit_pytorch import ViT
-import sys
 
 
 def predict():
@@ -43,6 +44,9 @@ def predict():
         args.load_input_from, torchvision.io.ImageReadMode.GRAY
     ).float()
     input = input.unsqueeze(0)
+    input = torch.narrow(input, 2, 50, 28)
+    input = torch.narrow(input, 3, 50, 28)
+    print(input.shape)
 
     # Normalize data
     mean = input.mean(dim=(1, 2, 3), keepdim=True)
