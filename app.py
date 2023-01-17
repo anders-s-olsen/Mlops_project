@@ -1,10 +1,19 @@
-import cv2
-from fastapi import FastAPI
 import pickle
 from datetime import datetime
-from fastapi import BackgroundTasks, UploadFile, File
+
+import cv2
+from fastapi import BackgroundTasks, FastAPI, File, UploadFile
+from google.cloud import storage
+from predict_model import predict
 
 app = FastAPI()
+BUCKET_NAME = "model_checkpoints_group24"
+MODEL_FILE = "trained_model.pt"
+
+client = storage.Client()
+bucket = client.get_bucket(BUCKET_NAME)
+blob = bucket.get_blob(MODEL_FILE)
+my_model = pickle.loads(blob.download_as_string())
 
 
 @app.get("/")
@@ -29,10 +38,4 @@ async def predict_number(input: UploadFile = File(...)):
         image.write(content)
         image.close()
 
-    with open("models/trained_model.pt", "rb") as file:
-        torch.load(file)
-
-        if prediction:
-            return "yes prediction"
-        else:
-            return {"hello world"}
+    return predict(my_model, image)
