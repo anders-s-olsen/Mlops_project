@@ -1,6 +1,5 @@
-import argparse
 import sys
-
+import argparse
 import torch
 import torch.nn.functional as F
 import torchvision
@@ -10,6 +9,7 @@ from vit_pytorch import ViT
 def predict(img=None,model_state=None):
     device="cpu"
     if img == None:
+        
         parser = argparse.ArgumentParser(description='Evaluating arguments')
         parser.add_argument('load_model_from', type=str)
         parser.add_argument('load_input_from', type=str)
