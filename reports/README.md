@@ -105,7 +105,7 @@ end of the project.
 >
 > Answer:
 
---- question 1 fill here ---
+24
 
 ### Question 2
 > **Enter the study number for each member in the group**
@@ -116,7 +116,7 @@ end of the project.
 >
 > Answer:
 
---- question 2 fill here ---
+ s184073, s184291, s184058, ansol
 
 ### Question 3
 > **What framework did you choose to work with and did it help you complete the project?**
@@ -129,6 +129,7 @@ end of the project.
 >
 > Answer:
 
+We used Pytorch and the transformers ecosystem, specifically vision transformers from the package vit-pytorch. We aimed to do MNIST classification. The vit-pytorch package is extremely easy to work with since it requires only few lines of code, leaving only setting up code for training and prediction. Besides pytorch we used git 
 --- question 3 fill here ---
 
 ## Coding environment
