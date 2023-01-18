@@ -3,7 +3,6 @@
 #################################################################################
 # GLOBALS                                                                       #
 #################################################################################
-
 PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 BUCKET = [OPTIONAL] your-bucket-for-syncing-data (do not include 's3://')
 PROFILE = default
@@ -28,6 +27,17 @@ requirements: test_environment
 ## Make Dataset
 data: requirements
 	$(PYTHON_INTERPRETER) src/data/make_dataset.py data/raw data/processed
+
+## Make prediction
+prediction: 
+	$(PYTHON_INTERPRETER) generate_mnist_examples.py $(INT)
+	curl -X 'POST' \
+  	'https://mnist-api-final1-x23vfage7a-ew.a.run.app/predict/' \
+	  -H 'accept: application/json' \
+	  -H 'Content-Type: multipart/form-data' \
+	  -F 'input=@mnist_example$(INT).png;type=image/png'
+	echo " "
+	rm mnist_example$(INT).png
 
 ## Delete all compiled Python files
 clean:
