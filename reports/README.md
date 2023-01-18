@@ -401,7 +401,7 @@ We did not use the compute engine, but instead used Vertex AI for training our m
 >
 > Answer:
 
---- question 20 fill here ---
+![Model bucket](figures/containerregistru.png)
 
 ### Question 21
 
@@ -410,7 +410,7 @@ We did not use the compute engine, but instead used Vertex AI for training our m
 >
 > Answer:
 
-![Model bucket](figures/containerregistru.png)
+![Model bucket](figures/cloudbuild.png)
 
 ### Question 22
 
