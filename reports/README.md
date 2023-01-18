@@ -129,8 +129,7 @@ end of the project.
 >
 > Answer:
 
-We used Pytorch and the transformers ecosystem, specifically vision transformers from the package vit-pytorch. We aimed to do MNIST classification. The vit-pytorch package is extremely easy to work with since it requires only few lines of code, leaving only setting up code for training and prediction. Besides pytorch we used git 
---- question 3 fill here ---
+We used Pytorch and the transformers ecosystem, specifically vision transformers from the package vit-pytorch. We aimed to do MNIST classification. The vit-pytorch package is extremely easy to work with since it requires only few lines of code, leaving only setting up code for training and prediction. The framework worked fine, giving us a 95% test accuracy and feasible training computation time when using the cloud. Besides pytorch we used git, cookiecutter, github actions, dvc, docker, hydra, weights and biases, google cloud for building docker containers, training our model, and running API for prediction and to check for data drifting and performance of the deployed model.
 
 ## Coding environment
 
@@ -149,7 +148,12 @@ We used Pytorch and the transformers ecosystem, specifically vision transformers
 >
 > Answer:
 
---- question 4 fill here ---
+We used `pip` for managing our dependencies. The list of dependencies was auto-generated using `pipreqs`. To get a*
+*complete copy of our development enviroment, one would have to set up a virtual environment with python3 and then run 
+```bash
+pip install -r requirements.txt
+```
+Alternatively it is possibly to open a virtual machine with our docker container for training or for predicting, which then has all the necessary dependencies installed
 
 ### Question 5
 
@@ -164,7 +168,7 @@ We used Pytorch and the transformers ecosystem, specifically vision transformers
 > *experiments.*
 > Answer:
 
---- question 5 fill here ---
+From the cookiecutter template we have filled out the data/raw and data/processed with raw and processed data by running the script `src/data/make_dataset.py`. We have also used the models/ folder for saving our interim trained models (the final trained models are in the cloud). We have also used the src/data and src/models folders for our python scripts to generate the dataset, train our model, and predict labels from new observations. We have removed the data/interim, data/external folder, references/ and the docs/ folder since our documentation is in the reports/ folder. Finally, we have used the `Makefile`, `setup.py` and `requirements.txt` initialized by cookiecutter. 
 
 ### Question 6
 
@@ -175,7 +179,7 @@ We used Pytorch and the transformers ecosystem, specifically vision transformers
 >
 > Answer:
 
---- question 6 fill here ---
+We have implemented `flake8` to check for `pep8` compliance on Github actions. Thus, whenever something is pushed, Github actions checks our python scripts for compliance. Code quality and format guidelines matter in larger projects since it should be possible to *take over* from one another. I.e., when one person has worked on a script, it should be easy for the next to understand what the first one has written. Name formatting etc makes it easier to know what types of variables and functions are in use.
 
 ## Version control
 
@@ -194,7 +198,7 @@ We used Pytorch and the transformers ecosystem, specifically vision transformers
 >
 > Answer:
 
---- question 7 fill here ---
+We have implemented 3 tests on Github actions which run whenever we push something to the repository. Primarily we are testing whether the `vit-pytorch` output is not empty. We also check that the output from `vit-pytorch` has the correct shape. These are the most critical parts of our application which we do not control ourselves. 
 
 ### Question 8
 
@@ -209,7 +213,7 @@ We used Pytorch and the transformers ecosystem, specifically vision transformers
 >
 > Answer:
 
---- question 8 fill here ---
+We did not calculate the coverage. However, even if we had included code checks for 100% of our code, there are still multiple ways each line of code could fail and, thus, one test for each is often not enough. It is also tedious to implement checks for every single part of the code so often it is preferred to prioritize the most important parts and implement many checks for these. Had we made a product which other people use and depend on, we would probably have made a much larger effort to keep both coverage high and make several tests for the most important parts of our code. 
 
 ### Question 9
 
@@ -224,7 +228,8 @@ We used Pytorch and the transformers ecosystem, specifically vision transformers
 >
 > Answer:
 
---- question 9 fill here ---
+Our work did include branches, however, we have not used pull requests. Instead we have merged branches since the branches we had did not diverge, i.e., merging did not provide any failures, since each group member often worked on a seperate part of the project. However, in a larger organization PRs are often necessary to maintain quality control. For example, one person may have made a mistake which could be caught by having another look through the code in a pull request. In this project we were also developing all the time - had we had a final product that we wanted to change, PRs would make a lot of sense. 
+
 
 ### Question 10
 
@@ -239,7 +244,7 @@ We used Pytorch and the transformers ecosystem, specifically vision transformers
 >
 > Answer:
 
---- question 10 fill here ---
+We did make use of DVC in the following way: To begin with, we had the MNIST data stored in a Google drive account that we all had access to. Later in the project we set up a storage bucket in Google cloud. DVC helped us ensure data quality by always having a version of data in the cloud. We used Google cloud storage to keep most of our pipeline using the same online tool. Likewise, DVC works well with git, so it is quite easy to incorporate. In the end it helped us in controlling the make-dataset part of our pipeline and made things easier when training our model. 
 
 ### Question 11
 
@@ -255,7 +260,9 @@ We used Pytorch and the transformers ecosystem, specifically vision transformers
 >
 > Answer:
 
---- question 11 fill here ---
+As previously mentioned we set up testing of parts of our code on Github actions. This runs whenever something is pushed to the repository. In addition to unit testing, where we mainly tested the `vit-pytorch` model outputs, we also implemented `flake8` for controlling `pep8` compliance and a mechanism to sort package imports in scripts. As previously mentioned, code formatting can be very important when working in groups to ensure that understanding someone else's code is easy and remove potential mistakes with origin in misunderstanding code. It often happens that the Github action fails when checking for code compliance, and it is therefore often preferred to have an automatic code formatter. Another part of code formatting is ensuring that package imports is in a sensible order. Here we used `isort` which sorts packages in groups, where the packages that come with the original python installation, such as `os` and `sys` are in the first group, and third-party packages are in another group. Likewise, the packages are sorted alphabetically. 
+
+We used `Docker` containers for most of our work. For example, for the training part, we had a Docker file that we set to automatically build on Google's `cloud build` whenever something was pushed to the repository. In this way, it was easy to change parts of the code in our editor, push the changes to the repository, wait for the Docker image to be built, and then set up training which pushed a trained model with weights etc. to its own storage bucket which is then pulled by the prediction API.
 
 ## Running code and tracking experiments
 
@@ -274,7 +281,7 @@ We used Pytorch and the transformers ecosystem, specifically vision transformers
 >
 > Answer:
 
---- question 12 fill here ---
+We made use of Hydra to specify a config file with hyperparameters for training the model. For example, the Hydra file included batch-size, learning rate, number of epochs. This config file was automatically loaded as part of the training script to ensure reproducibility across experiments (more config files could be used).
 
 ### Question 13
 
@@ -289,7 +296,7 @@ We used Pytorch and the transformers ecosystem, specifically vision transformers
 >
 > Answer:
 
---- question 13 fill here ---
+We made use of config files and weights and biases. As previously mentioned the Hydra config file specified certain hyperparameters and we could easily make several config files to explore these hyperparameters. Secondly we used Weights and Biases to track training of our model and ensure that the model produces good test accuracy. Here we also learned the approximate number of epochs that made sense for our training script. We had set up a team folder on Wandb to ensure all team members had access to the training documentation. The Wandb files are never deleted making sure that we have the hyperparameters used. 
 
 ### Question 14
 
@@ -306,7 +313,11 @@ We used Pytorch and the transformers ecosystem, specifically vision transformers
 >
 > Answer:
 
---- question 14 fill here ---
+![wandb_scrs](figures/wandb.png)
+
+As seen in the first image we have tracked training loss, test loss and test accuracy in our experiments. Since we are working with classification of images, having a classification accuracy makes a lot of sense. For example, we can see that the test accuracy converged at around 95% . The train loss informs on potential overfitting on data and the noisy training loss reveals the general range that we can expect a batch to change our training loss with. Such information can be used to tweak the learning rate. 
+
+MANGLER ORD
 
 ### Question 15
 
@@ -321,7 +332,7 @@ We used Pytorch and the transformers ecosystem, specifically vision transformers
 >
 > Answer:
 
---- question 15 fill here ---
+We used `Docker` in several ways. `Docker` is important to ensure reproducibility across machines where other stuff than just package dependencies may cause issures, for example operating systems. We had one docker file for training and one for deployment. The training docker file was triggered to build automatically upon a push to the repository main branch, since building could take several hours on a local pc. We then imported the docker image to Vertex AI for training. 
 
 ### Question 16
 
@@ -336,7 +347,7 @@ We used Pytorch and the transformers ecosystem, specifically vision transformers
 >
 > Answer:
 
---- question 16 fill here ---
+Debugging method was dependent on group member. Most group members used visual studio code for debugging the python scripts. In addition, the building of docker images and training of model on the GCP both failed a substantial amount of times, where we used the individual logs on GCP for debugging. We did not do any profiling of our code since `vit-pytorch` is an external package and the training and prediction scripts are mainly boilerplate. 
 
 ## Working in the cloud
 
@@ -353,6 +364,8 @@ We used Pytorch and the transformers ecosystem, specifically vision transformers
 >
 > Answer:
 
+We used Cloud build with a trigger for building container images, container registry for having an overview of the images, Vertex AI for training using the container image for training, XXXX for deployment
+
 --- question 17 fill here ---
 
 ### Question 18
@@ -368,7 +381,7 @@ We used Pytorch and the transformers ecosystem, specifically vision transformers
 >
 > Answer:
 
---- question 18 fill here ---
+We did not use the compute engine, but instead used Vertex AI for training our model. We had pushed a Docker image to the container registry, where the docker-file contained an entrypoint to our training script. Thus, when everything was working, it was fairly straightforward to start model training using Vertex AI. We had also setup GPU support, however, Vertex AI has specific quotas for GPUs which we did not manage to increase within the time frame. The training script was set up to export a trained model to GCP storage bucket. In the future it would perhaps be easier to use the compute engine without an entrypoint to do debugging. 
 
 ### Question 19
 
@@ -377,7 +390,9 @@ We used Pytorch and the transformers ecosystem, specifically vision transformers
 >
 > Answer:
 
---- question 19 fill here ---
+![Bucket overview](figures/Bucket1.png)
+![Data bucket](figures/Bucket2.png)
+![Model bucket](figures/Bucket3.png)
 
 ### Question 20
 
@@ -395,7 +410,7 @@ We used Pytorch and the transformers ecosystem, specifically vision transformers
 >
 > Answer:
 
---- question 21 fill here ---
+![Model bucket](figures/containerregistru.png)
 
 ### Question 22
 
@@ -411,7 +426,17 @@ We used Pytorch and the transformers ecosystem, specifically vision transformers
 >
 > Answer:
 
---- question 22 fill here ---
+For deployment we wrapped our model into application using FastAPI. We first tried locally serving the model, which
+worked. Afterwards we deployed it in the cloud, using GCP run. To invoke the service a user would call
+```bash
+curl -X 'POST' \
+  'https://mnist-api-final1-x23vfage7a-ew.a.run.app/predict/' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: multipart/form-data' \
+  -F 'input=@mnist_example.png;type=image/png'
+  ```
+
+  The above example works when standing in the root of our repository and using the mnist_example.png. It should be easy to change the example image to something else. As such it should be easy to make our app into an application that can be called whenever a digit prediction is needed. 
 
 ### Question 23
 
@@ -461,7 +486,9 @@ We used Pytorch and the transformers ecosystem, specifically vision transformers
 >
 > Answer:
 
---- question 25 fill here ---
+The starting point of the diagram is our local development setup, where we integrated pytorch, `vit-pytorch`, Hydra and Wandb. Here we made code for downloading and preprocessing the dataset, training the model, and predicting using the trained model. Whenever code was pushed to Github, a test for `pep8` compliance would run as well as some tests on Github Actions. Likewise, GCP would be triggered into building the container images based on the Docker files in the repository for both training and prediction. These images would land in the container registry. From there we can go towards training where we used Vertex AI. Both Wandb and Hydra was implemented in our training setup so we could view training progress and accuracy on the wandb webpage. The fainal trained model would be pushed to Google cloud storage. The prediction part was developed using FastAPI (again using a Docker container) and subsequently using GCP run, which then pulls the latest trained model from GCP cloud storage bucket. Finally, a user would be able to use a simple `curl` command to get a prediction on an image. The overview doesn't show the intermediate steps taken during development such as initializing git and dvc as well as debugging practices and use of pipreqs to note reuirements and make the repository easy to use for another developer. 
+
+[this figure](figures/overview.png)
 
 ### Question 26
 
@@ -475,7 +502,7 @@ We used Pytorch and the transformers ecosystem, specifically vision transformers
 >
 > Answer:
 
---- question 26 fill here ---
+One of the biggest challenges was using Vertex AI for training, since this required Docker build to work as well as all of the minor dependencies, such as including a wandb API key in the script, to work. Building a docker image on GCP easily takes 20 minutes and both the Docker image and the subsequent training could fail, leading to further debugging. Furthermore, the GCP documentation is not very user friendly and can take a long time to understand. 
 
 ### Question 27
 
@@ -492,4 +519,7 @@ We used Pytorch and the transformers ecosystem, specifically vision transformers
 >
 > Answer:
 
---- question 27 fill here ---
+Student ansol was in charge of developing the training part of the pipeline.
+Student s184291 was in charge of developing unit tests, pre-commit and Github actions for the project
+Student s184073 was in charge of deployment and the prediction part of the project
+Student s184058 was in charge of deployment and the prediction part of the project
