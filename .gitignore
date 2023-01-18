@@ -78,7 +78,7 @@ target/
 # exclude data from source control by default
 /data/
 /wandb/
-
+/models/
 # Mac OS-specific storage files
 .DS_Store
 
@@ -90,7 +90,6 @@ target/
 .mypy_cache/
 # data for dvc
 /data
-/models
 
 # Virtual environment
 .venv/

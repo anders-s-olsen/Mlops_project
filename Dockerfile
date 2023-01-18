@@ -11,7 +11,7 @@ COPY src/ src/
 COPY models/ models/
 RUN pwd
 RUN pip install -r requirements.txt --no-cache-dir
-RUN pip install wandb==0.9.7
+RUN pip install wandb
 RUN pip install google-cloud-storage
 RUN wandb login d0a33e78614ce7f709212f95a28a96f5ed34a684
 
