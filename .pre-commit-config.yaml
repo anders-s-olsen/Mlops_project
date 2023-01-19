@@ -21,10 +21,10 @@ repos:
         language_version: python3.10
         args:
             - --target-version=py310
+-   repo: https://github.com/pycqa/flake8
+    rev: 6.0.0
+    hooks:
     -   id: flake8
         language_version: python3.10
-        args: 
-            - src
-            - --ignore W501
-            - --ignore W504 
-            - --ignore W503 
+        args:
+            - flake8 src --ignore=E501,W504,W503
