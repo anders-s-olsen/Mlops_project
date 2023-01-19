@@ -26,5 +26,6 @@ repos:
     hooks:
     -   id: flake8
         language_version: python3.10
+        files: src
         args:
-            - flake8 src --ignore=E501,W504,W503
+            - --ignore=E501,W504,W503
