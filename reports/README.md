@@ -488,7 +488,7 @@ curl -X 'POST' \
 
 The starting point of the diagram is our local development setup, where we integrated pytorch, `vit-pytorch`, Hydra and Wandb. Here we made code for downloading and preprocessing the dataset, training the model, and predicting using the trained model. Whenever code was pushed to Github, a test for `pep8` compliance would run as well as some tests on Github Actions. Likewise, GCP would be triggered into building the container images based on the Docker files in the repository for both training and prediction. These images would land in the container registry. From there we can go towards training where we used Vertex AI. Both Wandb and Hydra was implemented in our training setup so we could view training progress and accuracy on the wandb webpage. The fainal trained model would be pushed to Google cloud storage. The prediction part was developed using FastAPI (again using a Docker container) and subsequently using GCP run, which then pulls the latest trained model from GCP cloud storage bucket. Finally, a user would be able to use a simple `curl` command to get a prediction on an image. The overview doesn't show the intermediate steps taken during development such as initializing git and dvc as well as debugging practices and use of pipreqs to note reuirements and make the repository easy to use for another developer. 
 
-[this figure](figures/overview.png)
+![Overview figure](figures/overview.png)
 
 ### Question 26
 
