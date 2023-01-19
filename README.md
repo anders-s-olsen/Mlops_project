@@ -29,13 +29,18 @@ curl -X 'POST' \
 Or you can clone repository and clone data with dvc and use make function as such:
 
 ´´´json
+´´´
+
+```Markdown
 git clone https://github.com/anders-s-olsen/Mlops_project.git
 cd Mlops_project
 dvc pull
 make data
 make INT=x prediction
-´´´
-
+```
+```javascript
+console.log('Code Tab B');
+```
 Project Organization
 ------------
 
