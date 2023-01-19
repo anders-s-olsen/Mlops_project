@@ -18,7 +18,7 @@ Transformers from the 2017-paper "Attention is all you need" have evolved to be 
 ### Use Model
 
 To use model to predict for image you can run command
-´´´json
+´´´Markdown
 curl -X 'POST' \
   'https://mnist-api-final1-x23vfage7a-ew.a.run.app/predict/' \
   -H 'accept: application/json' \
@@ -28,9 +28,6 @@ curl -X 'POST' \
 
 Or you can clone repository and clone data with dvc and use make function as such:
 
-´´´json
-´´´
-
 ```Markdown
 git clone https://github.com/anders-s-olsen/Mlops_project.git
 cd Mlops_project
@@ -38,9 +35,7 @@ dvc pull
 make data
 make INT=x prediction
 ```
-```javascript
-console.log('Code Tab B');
-```
+
 Project Organization
 ------------
 
