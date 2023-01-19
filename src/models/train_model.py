@@ -2,7 +2,6 @@
 # pytorch, vit_pytorch.
 import os
 import pickle
-import subprocess
 import sys
 import time
 
@@ -19,7 +18,6 @@ import wandb
 torch.manual_seed(97)
 
 sys.path.append("./src/data")
-from make_dataset import MNIST
 
 wandb.init(entity="dtu_mlops_group24", project="dtu_mlops24")
 
@@ -96,7 +94,7 @@ def train(cfg):
                     model.eval()
                     test_acc = 0
                     test_loss = 0
-                    for i, (data, target) in enumerate(dataloader):
+                    for i, (data, target) in enumerate(testloader):
                         out = F.log_softmax(model(data.to(device)), dim=1)
                         loss = F.nll_loss(out, target.to(device))
                         test_loss += loss.item()
@@ -112,13 +110,22 @@ def train(cfg):
     torch.save(model.state_dict(), "models/trained_model.pt")
     blob = bucket.blob("/trained_model.pt")
     blob.upload_from_filename("models/trained_model.pt")
-    print(f"Saved model files in 'gs://model_checkpoints_group24/trained_model.pt")
+    print(
+        "Saved model files in " +
+        "'gs://model_checkpoints_group24/trained_model.pt"
+         )
+
     # subprocess.check_call([
     #     'gsutil', 'cp', 'models/trained_model.pt',
     #     'gs://model_checkpoints_group24'
     # ])
 
-    print("Execution time:", "{:5.2f}".format(time.time() - start_time), "seconds")
+    print(
+        "Execution time:",
+        "{:5.2f}".format(
+            time.time() -
+            start_time),
+        "seconds")
 
 
 if __name__ == "__main__":
