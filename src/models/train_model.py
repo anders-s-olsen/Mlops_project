@@ -112,8 +112,8 @@ def train(cfg):
     blob.upload_from_filename("models/trained_model.pt")
     print(
         "Saved model files in " +
-        "'gs://model_checkpoints_group24/trained_model.pt"
-        )
+        "'gs://model_checkpoints_group24/trained_model.pt")
+
     # subprocess.check_call([
     #     'gsutil', 'cp', 'models/trained_model.pt',
     #     'gs://model_checkpoints_group24'
