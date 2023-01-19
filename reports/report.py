@@ -57,18 +57,14 @@ def check():
         if not (min <= len(answer) <= max):
             warnings.warn(
                 f"Question {index} failed check. Expected number of words to be"
-                f" between {min} and {max} but got {len(answer)}",
-                TeacherWarning,
-            )
+                f" between {min} and {max} but got {len(answer)}", TeacherWarning, )
 
     def image_constrains(answer, index, min, max):
         links = re.findall(r"\!\[.*?\]\(.*?\)", answer)
         if not (min <= len(links) <= max):
             warnings.warn(
                 f"Question {index} failed check. Expected number of screenshots to be"
-                f" between {min} and {max} but got {len(links)}",
-                TeacherWarning,
-            )
+                f" between {min} and {max} but got {len(links)}", TeacherWarning, )
 
     def multi_constrains(answer, index, constrains):
         for fn in constrains:
