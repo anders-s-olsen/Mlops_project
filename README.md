@@ -15,7 +15,23 @@ We will use the standard MNIST data set as included in `torchvision` datasets. T
 ### What deep learning models do you expect to use
 Transformers from the 2017-paper "Attention is all you need" have evolved to be near-SOTA models for a wide variety of applications. Transformers were initially developed for text or time-series analysis but have recently been extended to 2D data with the vision transformers introduced in the 2020-paper "An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale".
 
-
+### Use Model
+To use model to predict for image you can run command
+'''
+curl -X 'POST' \
+  'https://mnist-api-final1-x23vfage7a-ew.a.run.app/predict/' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: multipart/form-data' \
+  -F 'input=@{image_file.png};type=image/png'
+'''
+Or you can clone repository and clone data with dvc and use make function as such:
+'''
+git clone https://github.com/anders-s-olsen/Mlops_project.git
+cd Mlops_project
+dvc pull
+make data
+make INT=x prediction
+'''
 Project Organization
 ------------
 
