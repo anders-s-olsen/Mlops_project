@@ -129,7 +129,7 @@ end of the project.
 >
 > Answer:
 
-We used Pytorch and the transformers ecosystem, specifically vision transformers from the package vit-pytorch. We aimed to do MNIST classification. The vit-pytorch package is extremely easy to work with since it requires only few lines of code, leaving only setting up code for training and prediction. The framework worked fine, giving us a 95% test accuracy and feasible training computation time when using the cloud. Besides pytorch we used git, cookiecutter, github actions, dvc, docker, hydra, weights and biases, google cloud for building docker containers, training our model, and running API for prediction and to check for data drifting and performance of the deployed model.
+We used Pytorch and the transformers ecosystem, specifically vision transformers from the package `vit-pytorch`. We aimed to do MNIST classification. The `vit-pytorch` package is extremely easy to work with since it requires only few lines of code, leaving only setting up code for training and prediction. The framework worked fine, giving us a 95% test accuracy and feasible training computation time when using the cloud. Besides pytorch we used git, cookiecutter, github actions, dvc, docker, hydra, weights and biases, google cloud for building docker containers, training our model, and running API for prediction and could furthermore easily be adjusted to check for data drifting and performance of the deployed model as all predictions made through the API are saved to a CSV-file in the Docker container.
 
 ## Coding environment
 
@@ -143,8 +143,8 @@ We used Pytorch and the transformers ecosystem, specifically vision transformers
 > Answer length: 100-200 words
 >
 > Example:
-> *We used ... for managing our dependencies. The list of dependencies was auto-generated using ... . To get a*
-> *complete copy of our development enviroment, one would have to run the following commands*
+> *We used ... for managing our dependencies. The list of dependencies was auto-generated using ... . To get a
+> complete copy of our development enviroment, one would have to run the following commands*
 >
 > Answer:
 
@@ -465,7 +465,7 @@ curl -X 'POST' \
 >
 > Answer:
 
---- question 24 fill here ---
+s184073 used 10 credits, s184291 used 0 credits, s184058 used 12 credits and ansol used 10 credits. The most expensive service was `Compute Engine` and `Vertex AI`
 
 ## Overall discussion of project
 
