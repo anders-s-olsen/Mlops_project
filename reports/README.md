@@ -44,49 +44,49 @@ be installed with `pip install click markdown`.
 
 ## Overall project checklist
 
-The checklist is *exhaustic* which means that it includes everything that you could possible do on the project in
+The checklist is *exhaustive* which means that it includes everything that you could possible do on the project in
 relation the curricilum in this course. Therefore, we do not expect at all that you have checked of all boxes at the
 end of the project.
 
 ### Week 1
 
-* [ ] Create a git repository
-* [ ] Make sure that all team members have write access to the github repository
-* [ ] Create a dedicated environment for you project to keep track of your packages
-* [ ] Create the initial file structure using cookiecutter
-* [ ] Fill out the `make_dataset.py` file such that it downloads whatever data you need and
-* [ ] Add a model file and a training script and get that running
-* [ ] Remember to fill out the `requirements.txt` file with whatever dependencies that you are using
-* [ ] Remember to comply with good coding practices (`pep8`) while doing the project
+* [x] Create a git repository
+* [x] Make sure that all team members have write access to the github repository
+* [x] Create a dedicated environment for you project to keep track of your packages
+* [x] Create the initial file structure using cookiecutter
+* [x] Fill out the `make_dataset.py` file such that it downloads whatever data you need and
+* [x] Add a model file and a training script and get that running
+* [x] Remember to fill out the `requirements.txt` file with whatever dependencies that you are using
+* [x] Remember to comply with good coding practices (`pep8`) while doing the project
 * [ ] Do a bit of code typing and remember to document essential parts of your code
-* [ ] Setup version control for your data or part of your data
-* [ ] Construct one or multiple docker files for your code
-* [ ] Build the docker files locally and make sure they work as intended
-* [ ] Write one or multiple configurations files for your experiments
-* [ ] Used Hydra to load the configurations and manage your hyperparameters
+* [x] Setup version control for your data or part of your data
+* [x] Construct one or multiple docker files for your code
+* [x] Build the docker files locally and make sure they work as intended
+* [x] Write one or multiple configurations files for your experiments
+* [x] Used Hydra to load the configurations and manage your hyperparameters
 * [ ] When you have something that works somewhat, remember at some point to to some profiling and see if
       you can optimize your code
-* [ ] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally,
+* [x] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally,
       consider running a hyperparameter optimization sweep.
 * [ ] Use Pytorch-lightning (if applicable) to reduce the amount of boilerplate in your code
 
 ### Week 2
 
 * [ ] Write unit tests related to the data part of your code
-* [ ] Write unit tests related to model construction and or model training
+* [x] Write unit tests related to model construction and or model training
 * [ ] Calculate the coverage.
-* [ ] Get some continuous integration running on the github repository
-* [ ] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
-* [ ] Create a trigger workflow for automatically building your docker images
-* [ ] Get your model training in GCP using either the Engine or Vertex AI
-* [ ] Create a FastAPI application that can do inference using your model
-* [ ] If applicable, consider deploying the model locally using torchserve
-* [ ] Deploy your model in GCP using either Functions or Run as the backend
+* [x] Get some continuous integration running on the github repository
+* [x] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
+* [x] Create a trigger workflow for automatically building your docker images
+* [x] Get your model training in GCP using either the Engine or Vertex AI
+* [x] Create a FastAPI application that can do inference using your model
+* [x] If applicable, consider deploying the model locally using torchserve
+* [x] Deploy your model in GCP using either Functions or Run as the backend
 
 ### Week 3
 
-* [ ] Check how robust your model is towards data drifting
-* [ ] Setup monitoring for the system telemetry of your deployed model
+* [x] Check how robust your model is towards data drifting
+* [x] Setup monitoring for the system telemetry of your deployed model
 * [ ] Setup monitoring for the performance of your deployed model
 * [ ] If applicable, play around with distributed data loading
 * [ ] If applicable, play around with distributed model training
@@ -95,8 +95,8 @@ end of the project.
 ### Additional
 
 * [ ] Revisit your initial project description. Did the project turn out as you wanted?
-* [ ] Make sure all group members have a understanding about all parts of the project
-* [ ] Uploaded all your code to github
+* [x] Make sure all group members have a understanding about all parts of the project
+* [x] Uploaded all your code to github
 
 ## Group information
 
@@ -129,7 +129,7 @@ end of the project.
 >
 > Answer:
 
-We used Pytorch and the transformers ecosystem, specifically vision transformers from the package vit-pytorch. We aimed to do MNIST classification. The vit-pytorch package is extremely easy to work with since it requires only few lines of code, leaving only setting up code for training and prediction. The framework worked fine, giving us a 95% test accuracy and feasible training computation time when using the cloud. Besides pytorch we used git, cookiecutter, github actions, dvc, docker, hydra, weights and biases, google cloud for building docker containers, training our model, and running API for prediction and to check for data drifting and performance of the deployed model.
+We used Pytorch and the transformers ecosystem, specifically vision transformers from the package `vit-pytorch`. We aimed to do MNIST classification using a SOTA model. The vit-pytorch package is extremely easy to work with since it requires only few lines of code, leaving us to only set up code for training and prediction. The framework worked fine, giving us a 95% test accuracy and feasible training computation time when using the cloud. Besides pytorch we used git, cookiecutter, github actions, dvc, docker, hydra, weights and biases, google cloud for building docker containers, training our model, and running API for prediction and to check for data drifting and performance of the deployed model.
 
 ## Coding environment
 
@@ -148,12 +148,12 @@ We used Pytorch and the transformers ecosystem, specifically vision transformers
 >
 > Answer:
 
-We used `pip` for managing our dependencies. The list of dependencies was auto-generated using `pipreqs`. To get a*
-*complete copy of our development enviroment, one would have to set up a virtual environment with python3 and then run 
+We used `pip` for managing our dependencies. The list of dependencies was auto-generated using `pipreqs`. To get a
+complete copy of our development enviroment, one would have to set up a virtual environment with python3 and then run 
 ```bash
 pip install -r requirements.txt
 ```
-Alternatively it is possibly to open a virtual machine with our docker container for training or for predicting, which then has all the necessary dependencies installed
+Alternatively it is possibly to open a virtual machine with our docker container for training or for predicting, which then has all the necessary dependencies installed. The Docker image then also has the same python version as the one we used and the same operating system and so on. The downside to docker is that the image has to be built whenever the list of dependencies is updated. However, it worked for us to just have a list of dependencies. 
 
 ### Question 5
 
@@ -213,7 +213,7 @@ We have implemented 3 tests on Github actions which run whenever we push somethi
 >
 > Answer:
 
-We did not calculate the coverage. However, even if we had included code checks for 100% of our code, there are still multiple ways each line of code could fail and, thus, one test for each is often not enough. It is also tedious to implement checks for every single part of the code so often it is preferred to prioritize the most important parts and implement many checks for these. Had we made a product which other people use and depend on, we would probably have made a much larger effort to keep both coverage high and make several tests for the most important parts of our code. 
+We did not calculate the coverage. However, even if we had included code checks for 100% of our code, there are still multiple ways each line of code could fail and, thus, one test for each line is often not enough. It is also tedious to implement checks for every single part of the code so often it is preferred to prioritize the most important parts and implement several checks for these. Had we made a product which other people use and depend on, we would probably have made a much larger effort to keep both coverage high and make several tests for the most important parts of our code. 
 
 ### Question 9
 
@@ -228,7 +228,7 @@ We did not calculate the coverage. However, even if we had included code checks 
 >
 > Answer:
 
-Our work did include branches, however, we have not used pull requests. Instead we have merged branches since the branches we had did not diverge, i.e., merging did not provide any failures, since each group member often worked on a seperate part of the project. However, in a larger organization PRs are often necessary to maintain quality control. For example, one person may have made a mistake which could be caught by having another look through the code in a pull request. In this project we were also developing all the time - had we had a final product that we wanted to change, PRs would make a lot of sense. 
+Our work did include branches, however, we have not used pull requests. Instead we have merged branches since the branches we had did not diverge, i.e., merging did not provide any failures, since each group member often worked on a seperate part of the project. However, in a larger organization PRs are often necessary to maintain quality control. For example, one person may have made a mistake that could be caught by having another look through the code in a pull request. In this project we were also developing all the time - had we had a final product that we wanted to change, PRs would make a lot of sense. 
 
 
 ### Question 10
@@ -244,7 +244,7 @@ Our work did include branches, however, we have not used pull requests. Instead 
 >
 > Answer:
 
-We did make use of DVC in the following way: To begin with, we had the MNIST data stored in a Google drive account that we all had access to. Later in the project we set up a storage bucket in Google cloud. DVC helped us ensure data quality by always having a version of data in the cloud. We used Google cloud storage to keep most of our pipeline using the same online tool. Likewise, DVC works well with git, so it is quite easy to incorporate. In the end it helped us in controlling the make-dataset part of our pipeline and made things easier when training our model. 
+We made use of DVC in the following way: To begin with, we had the MNIST data stored in a Google drive account that we all had access to. Later in the project we set up a storage bucket in Google cloud. DVC helped us ensure data quality by always having a version of data in the cloud. We used Google cloud storage to keep most of our pipeline using the same online tool. Likewise, DVC works well with git, so it is quite easy to incorporate. In the end it helped us in controlling the make-dataset part of our pipeline and made things easier when training our model. It also ensured that the if the raw data had been faultily changed we could roll the change back. 
 
 ### Question 11
 
@@ -260,7 +260,7 @@ We did make use of DVC in the following way: To begin with, we had the MNIST dat
 >
 > Answer:
 
-As previously mentioned we set up testing of parts of our code on Github actions. This runs whenever something is pushed to the repository. In addition to unit testing, where we mainly tested the `vit-pytorch` model outputs, we also implemented `flake8` for controlling `pep8` compliance and a mechanism to sort package imports in scripts. As previously mentioned, code formatting can be very important when working in groups to ensure that understanding someone else's code is easy and remove potential mistakes with origin in misunderstanding code. It often happens that the Github action fails when checking for code compliance, and it is therefore often preferred to have an automatic code formatter. Another part of code formatting is ensuring that package imports is in a sensible order. Here we used `isort` which sorts packages in groups, where the packages that come with the original python installation, such as `os` and `sys` are in the first group, and third-party packages are in another group. Likewise, the packages are sorted alphabetically. 
+As previously mentioned we set up testing of parts of our code on Github actions. This runs whenever something is pushed to the repository. In addition to unit testing, where we mainly tested the `vit-pytorch` model outputs, we also implemented `flake8` for controlling `pep8` compliance and a mechanism to sort package imports in our scripts. As previously mentioned, code formatting can be very important when working in groups to ensure that understanding someone else's code is easy and remove potential mistakes with origin in misunderstanding code. It often happens that the Github action fails when checking for code compliance, and it is therefore often preferred to have an automatic code formatter. Another part of code formatting is ensuring that package imports is in a sensible order. Here we used `isort` which sorts packages in groups, where the packages that come with the original python installation, such as `os` and `sys` are in the first group, and third-party packages are in another group. Likewise, the packages are sorted alphabetically. 
 
 We used `Docker` containers for most of our work. For example, for the training part, we had a Docker file that we set to automatically build on Google's `cloud build` whenever something was pushed to the repository. In this way, it was easy to change parts of the code in our editor, push the changes to the repository, wait for the Docker image to be built, and then set up training which pushed a trained model with weights etc. to its own storage bucket which is then pulled by the prediction API.
 
@@ -281,7 +281,7 @@ We used `Docker` containers for most of our work. For example, for the training 
 >
 > Answer:
 
-We made use of Hydra to specify a config file with hyperparameters for training the model. For example, the Hydra file included batch-size, learning rate, number of epochs. This config file was automatically loaded as part of the training script to ensure reproducibility across experiments (more config files could be used).
+We made use of Hydra with a specified config file with hyperparameters for training the model. For example, the Hydra file included batch-size, learning rate, and number of epochs. This config file was automatically loaded as part of the training script to ensure reproducibility across experiments (more config files could be used).
 
 ### Question 13
 
@@ -296,7 +296,7 @@ We made use of Hydra to specify a config file with hyperparameters for training 
 >
 > Answer:
 
-We made use of config files and weights and biases. As previously mentioned the Hydra config file specified certain hyperparameters and we could easily make several config files to explore these hyperparameters. Secondly we used Weights and Biases to track training of our model and ensure that the model produces good test accuracy. Here we also learned the approximate number of epochs that made sense for our training script. We had set up a team folder on Wandb to ensure all team members had access to the training documentation. The Wandb files are never deleted making sure that we have the hyperparameters used. 
+We made use of config files and Weights & Biases. As previously mentioned the Hydra config file specified certain hyperparameters and we could easily make several config files to explore these hyperparameters. Secondly we used Weights & Biases to track training of our model and ensure that the model produces good test accuracy. Here we also learned the approximate number of epochs that made sense for our training script. We had set up a team folder on Wandb to ensure all team members had access to the training documentation. The Wandb files are never deleted, which helps making sure that we know the hyperparameters used. 
 
 ### Question 14
 
@@ -315,9 +315,9 @@ We made use of config files and weights and biases. As previously mentioned the 
 
 ![wandb_scrs](figures/wandb.png)
 
-As seen in the first image we have tracked training loss, test loss and test accuracy in our experiments. Since we are working with classification of images, having a classification accuracy makes a lot of sense. For example, we can see that the test accuracy converged at around 95% . The train loss informs on potential overfitting on data and the noisy training loss reveals the general range that we can expect a batch to change our training loss with. Such information can be used to tweak the learning rate. 
+As seen in the first image we have tracked training loss, test loss and test accuracy in our experiments. Since we are working with classification of images, having a classification accuracy makes a lot of sense. For example, we can see that the test accuracy converged at around 95%. The train loss informs on potential overfitting on data and the noise in the training loss reveals the general range that we can expect a batch to change our training loss with. Such information could be used to tweak the learning rate. 
 
-MANGLER ORD
+In general we did not investigate a range of hyperparameters (sweep), which is one of the things than Weights and Biases could be used for. Instead we focused on implementing an already-developed model (in `vit-pytorch`) and implementing all of the other tools taught in the course. If we had focused on optimizing hyperparameters we could have achieved a higher classification accuracy, however, this was not the primary goal in this project. Rather, we focused on the synergy between Weights and Biases and, e.g., training using Vertex AI and using configuration files with Hydra and so on. Likewise, we also learned how to include Weights and Biases in Docker containers to ensure that even if the image is run by someone else in the group, we could all still se the training progression in Weights and Biases. 
 
 ### Question 15
 
@@ -332,7 +332,7 @@ MANGLER ORD
 >
 > Answer:
 
-We used `Docker` in several ways. `Docker` is important to ensure reproducibility across machines where other stuff than just package dependencies may cause issures, for example operating systems. We had one docker file for training and one for deployment. The training docker file was triggered to build automatically upon a push to the repository main branch, since building could take several hours on a local pc. We then imported the docker image to Vertex AI for training. 
+We used `Docker` in several ways. `Docker` is important to ensure reproducibility across machines where other stuff than just package dependencies may cause issues, for example operating systems and python versions. We had one docker file for training and one for deployment. The training docker file was triggered to build automatically upon a push to the repository main branch, since building could take several hours on a local pc. We then imported the docker image to Vertex AI for training. The Docker image for deployment was built locally and then pushed to the container registry in GCP from where it was deployed using GCP run. 
 
 ### Question 16
 
@@ -347,7 +347,7 @@ We used `Docker` in several ways. `Docker` is important to ensure reproducibilit
 >
 > Answer:
 
-Debugging method was dependent on group member. Most group members used visual studio code for debugging the python scripts. In addition, the building of docker images and training of model on the GCP both failed a substantial amount of times, where we used the individual logs on GCP for debugging. We did not do any profiling of our code since `vit-pytorch` is an external package and the training and prediction scripts are mainly boilerplate. 
+Debugging method was dependent on group member. Some group members used visual studio code for debugging the python scripts using the built-in debugger. In addition, the building of docker images and training of model on the GCP both failed a substantial amount of times, where we used the individual logs on GCP for debugging. We did not do any profiling of our code since `vit-pytorch` is an external package and the training and prediction scripts are mainly boilerplate. However, in Weights and Biases we have an overview of the total amount of time taken to run the computations using the specified hyperparameters.
 
 ## Working in the cloud
 
@@ -364,7 +364,7 @@ Debugging method was dependent on group member. Most group members used visual s
 >
 > Answer:
 
-We used Cloud build with a trigger for building container images, container registry for having an overview of the images, Vertex AI for training using the container image for training, XXXX for deployment
+We used Cloud build with a trigger for building training container images, container registry for having an overview of the images where also the deployment images were pushed to, Vertex AI for training using the container image for training, and finally we used cloud run for deployment of the prediction image. 
 
 --- question 17 fill here ---
 
@@ -426,8 +426,8 @@ We did not use the compute engine, but instead used Vertex AI for training our m
 >
 > Answer:
 
-For deployment we wrapped our model into application using FastAPI. We first tried locally serving the model, which
-worked. Afterwards we deployed it in the cloud, using GCP run. To invoke the service a user would call
+For deployment we wrapped our model into an application using FastAPI. We first tried locally serving the model, which
+worked. We used Docker for building an image of out prediction application, and the image was pushed to the GCP container registry. Afterwards we deployed the image in the cloud, using GCP run. To invoke the service a user would call:
 ```bash
 curl -X 'POST' \
   'https://mnist-api-final1-x23vfage7a-ew.a.run.app/predict/' \
@@ -436,7 +436,7 @@ curl -X 'POST' \
   -F 'input=@mnist_example.png;type=image/png'
   ```
 
-  The above example works when standing in the root of our repository and using the mnist_example.png. It should be easy to change the example image to something else. As such it should be easy to make our app into an application that can be called whenever a digit prediction is needed. 
+  The above example works when standing in the root of our repository and using the mnist_example.png. It should be easy to change the example image to something else. As such it should be easy to make our app into an application that can be called whenever an image label prediction is needed. 
 
 ### Question 23
 
@@ -451,7 +451,7 @@ curl -X 'POST' \
 >
 > Answer:
 
---- question 23 fill here ---
+We implemented data drift monitoring for our application. However, we have not used our deployed model with many different test images, so we haven't tested whether the monitoring works as specified. Monitoring helps the longevity of applications such as ours. For one, monitoring data drift can ensure that real world use cases correspond to the training data. If not, a trigger can be set up to alert the developer that the data going into the prediction API does not correspond to the data used for training. Such information can be critical for some applications, such as for recommender systems where it is important to always stay up to date with the latest search inquiries. 
 
 ### Question 24
 
@@ -465,7 +465,7 @@ curl -X 'POST' \
 >
 > Answer:
 
---- question 24 fill here ---
+We only used $10.04 in our project. In general we used GCP for many different things, including hosting data, building docker images, training model and deploying the model. However, our data storage requirements weren't huge and training was quite fast. As such, we did not use that many of our credits. 
 
 ## Overall discussion of project
 
@@ -502,7 +502,9 @@ The starting point of the diagram is our local development setup, where we integ
 >
 > Answer:
 
-One of the biggest challenges was using Vertex AI for training, since this required Docker build to work as well as all of the minor dependencies, such as including a wandb API key in the script, to work. Building a docker image on GCP easily takes 20 minutes and both the Docker image and the subsequent training could fail, leading to further debugging. Furthermore, the GCP documentation is not very user friendly and can take a long time to understand. 
+We had several challenges during this project, and most of them concerned getting the different tools to work, and get them to work together. For example, one of the biggest challenges was using Vertex AI for training, since this required Docker build to work as well as all of the minor dependencies, such as including a wandb API key in the script. Building a docker image on GCP easily takes 20 minutes and both the Docker image and the subsequent training could fail, requiring further debugging. Furthermore, the GCP documentation is not very user friendly and can take a long time to understand. We also thought that we had access to GPUs, since we requested an increased quota which was approves immediately. However, it turned out that Vertex AI has their own quotas which we did not get to increase before we had moved on. 
+
+Hvad var ellers svært?
 
 ### Question 27
 
