@@ -30,6 +30,7 @@ Or you can clone repository and clone data with dvc and use make function as suc
 ```Markdown
 git clone https://github.com/anders-s-olsen/Mlops_project.git
 cd Mlops_project
+make requirements
 dvc pull
 make data
 make INT=x prediction
