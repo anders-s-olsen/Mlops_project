@@ -18,14 +18,13 @@ Transformers from the 2017-paper "Attention is all you need" have evolved to be 
 ### Use Model
 
 To use model to predict for image you can run command
-´´´Markdown
+```Markdown
 curl -X 'POST' \
   'https://mnist-api-final1-x23vfage7a-ew.a.run.app/predict/' \
   -H 'accept: application/json' \
   -H 'Content-Type: multipart/form-data' \
   -F 'input=@{image_file.png};type=image/png'
-´´´
-
+```
 Or you can clone repository and clone data with dvc and use make function as such:
 
 ```Markdown
