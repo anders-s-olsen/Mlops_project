@@ -21,3 +21,10 @@ repos:
         language_version: python3.10
         args:
             - --target-version=py310
+    -   id: flake8
+        language_version: python3.10
+        args: 
+            - src
+            - --ignore W501
+            - --ignore W504 
+            - --ignore W503 
