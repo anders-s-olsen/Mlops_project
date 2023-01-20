@@ -129,7 +129,7 @@ end of the project.
 >
 > Answer:
 
-We used Pytorch and the transformers ecosystem, specifically vision transformers from the package `vit-pytorch`. We aimed to do MNIST classification using a SOTA model. The vit-pytorch package is extremely easy to work with since it requires only few lines of code, leaving us to only set up code for training and prediction. The framework worked fine, giving us a 95% test accuracy and feasible training computation time when using the cloud. Besides pytorch we used git, cookiecutter, github actions, dvc, docker, hydra, weights and biases, google cloud for building docker containers, training our model, and running API for prediction and to check for data drifting and performance of the deployed model.
+We used Pytorch and the transformers ecosystem, specifically vision transformers from the package `vit-pytorch`. We aimed to do MNIST classification using a SOTA model. The `vit-pytorch` package is extremely easy to work with since it requires only few lines of code, leaving us to only setting up code for training and prediction. The framework worked fine, giving us a 95% test accuracy and feasible training computation time when using the cloud. Besides pytorch we used git, cookiecutter, github actions, dvc, docker, hydra, weights and biases, google cloud for building docker containers, training our model, and running API for prediction and could furthermore easily be adjusted to check for data drifting and performance of the deployed model as all predictions made through the API are saved to a CSV-file in the Docker container.
 
 ## Coding environment
 
@@ -143,8 +143,8 @@ We used Pytorch and the transformers ecosystem, specifically vision transformers
 > Answer length: 100-200 words
 >
 > Example:
-> *We used ... for managing our dependencies. The list of dependencies was auto-generated using ... . To get a*
-> *complete copy of our development enviroment, one would have to run the following commands*
+> *We used ... for managing our dependencies. The list of dependencies was auto-generated using ... . To get a
+> complete copy of our development enviroment, one would have to run the following commands*
 >
 > Answer:
 
@@ -390,7 +390,6 @@ We did not use the compute engine, but instead used Vertex AI for training our m
 >
 > Answer:
 
-![Bucket overview](figures/Bucket1.png)
 ![Data bucket](figures/Bucket2.png)
 ![Model bucket](figures/Bucket3.png)
 
@@ -465,7 +464,7 @@ We implemented data drift monitoring for our application. However, we have not u
 >
 > Answer:
 
-We only used $10.04 in our project. In general we used GCP for many different things, including hosting data, building docker images, training model and deploying the model. However, our data storage requirements weren't huge and training was quite fast. As such, we did not use that many of our credits. 
+s184073 used 10 credits, s184291 used 0 credits, s184058 used 12 credits and ansol used 10 credits. The most expensive service was `Compute Engine` and `Vertex AI`
 
 ## Overall discussion of project
 
@@ -504,7 +503,7 @@ The starting point of the diagram is our local development setup, where we integ
 
 We had several challenges during this project, and most of them concerned getting the different tools to work, and get them to work together. For example, one of the biggest challenges was using Vertex AI for training, since this required Docker build to work as well as all of the minor dependencies, such as including a wandb API key in the script. Building a docker image on GCP easily takes 20 minutes and both the Docker image and the subsequent training could fail, requiring further debugging. Furthermore, the GCP documentation is not very user friendly and can take a long time to understand. We also thought that we had access to GPUs, since we requested an increased quota which was approves immediately. However, it turned out that Vertex AI has their own quotas which we did not get to increase before we had moved on. 
 
-Hvad var ellers svært?
+Regarding setting up the `Cloud Run` API for inference, we got error messages regarding the port when deploying the docker image, although the error was not related to the port but various other things. Furthermore, we struggled with accessing the trained model from the Google Cloud bucket to the Docker container during deployment. As a result, we used an entire day to debug the deployment of the model. 
 
 ### Question 27
 

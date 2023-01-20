@@ -56,7 +56,7 @@ def check():
         answer = answer.split()
         if not (min <= len(answer) <= max):
             warnings.warn(
-                f"Question {index} failed check. Expected number of words to be"
+                f"Question {index+1} failed check. Expected number of words to be"
                 f" between {min} and {max} but got {len(answer)}", TeacherWarning, )
 
     def image_constrains(answer, index, min, max):
