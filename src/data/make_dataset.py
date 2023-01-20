@@ -33,7 +33,7 @@ class MNIST(Dataset):
         files = os.listdir("./data/raw")
         if "mnist.npz" not in files:
             wget.download(
-                "https://storage.googleapis.co/" +
+                "https://storage.googleapis.com/" +
                 "tensorflow/tf-keras-datasets/mnist.npz",
                 out="./data/raw",
             )
